@@ -592,7 +592,14 @@ if uploaded_file is not None :
         bacnet_service["time"] = bacnet_service['time'].apply(lambda x : x.strftime("%d %B, %Y, %H:%M"))
         bacnet_service = bacnet_service.set_index('time')
         st.write('Total no of packets')
-        st.line_chart(bacnet_service)
+        
+        bacnet_service = bacnet_service.reset_index().melt('time')
+        chart = alt.Chart(bacnet_service).mark_line().encode(
+            x = alt.X('time', axis=alt.Axis(labelOverlap="greedy",grid=False)),
+            y = alt.Y('value'),
+            color= alt.Color('variable')
+        )
+        st.altair_chart(chart, use_container_width=True)
     if('total time' in options):
         bacnet_service = pd.DataFrame()
         li = [whois,iam,rpm,rp,rr,almack,getevsum,baddlist,bgetinfo,butctimsync]
@@ -605,7 +612,14 @@ if uploaded_file is not None :
         bacnet_service["time"] = bacnet_service['time'].apply(lambda x : x.strftime("%d %B, %Y, %H:%M"))
         bacnet_service = bacnet_service.set_index('time')
         st.write('total time')
-        st.line_chart(bacnet_service)
+        
+        bacnet_service = bacnet_service.reset_index().melt('time')
+        chart = alt.Chart(bacnet_service).mark_line().encode(
+            x = alt.X('time', axis=alt.Axis(labelOverlap="greedy",grid=False)),
+            y = alt.Y('value'),
+            color= alt.Color('variable')
+        )
+        st.altair_chart(chart, use_container_width=True)
         
 
     if('individual packet time' in options):
@@ -620,7 +634,14 @@ if uploaded_file is not None :
             bacnet_service[name[k]] = lis
         bacnet_service["time"] = bacnet_service['time'].apply(lambda x : x.strftime("%d %B, %Y, %H:%M"))
         bacnet_service = bacnet_service.set_index('time')
-        st.line_chart(bacnet_service)
+        
+        bacnet_service = bacnet_service.reset_index().melt('time')
+        chart = alt.Chart(bacnet_service).mark_line().encode(
+            x = alt.X('time', axis=alt.Axis(labelOverlap="greedy",grid=False)),
+            y = alt.Y('value'),
+            color= alt.Color('variable')
+        )
+        st.altair_chart(chart, use_container_width=True)
       
 else :
     # ETHERNET
@@ -1168,7 +1189,14 @@ else :
         bacnet_service["time"] = bacnet_service['time'].apply(lambda x : x.strftime("%d %B, %Y, %H:%M"))
         bacnet_service = bacnet_service.set_index('time')
         st.write('Total no of packets')
-        st.line_chart(bacnet_service)
+        bacnet_service = bacnet_service.reset_index().melt('time')
+        chart = alt.Chart(bacnet_service).mark_line().encode(
+            x = alt.X('time', axis=alt.Axis(labelOverlap="greedy",grid=False)),
+            y = alt.Y('value'),
+            color= alt.Color('variable')
+        )
+        st.altair_chart(chart, use_container_width=True)
+        
     if('total time' in options):
         bacnet_service = pd.DataFrame()
         li = [whois,iam,rpm,rp,rr,almack,getevsum,baddlist,bgetinfo,butctimsync]
@@ -1181,7 +1209,14 @@ else :
         bacnet_service["time"] = bacnet_service['time'].apply(lambda x : x.strftime("%d %B, %Y, %H:%M"))
         bacnet_service = bacnet_service.set_index('time')
         st.write('total time')
-        st.line_chart(bacnet_service)
+        
+        bacnet_service = bacnet_service.reset_index().melt('time')
+        chart = alt.Chart(bacnet_service).mark_line().encode(
+            x = alt.X('time', axis=alt.Axis(labelOverlap="greedy",grid=False)),
+            y = alt.Y('value'),
+            color= alt.Color('variable')
+        )
+        st.altair_chart(chart, use_container_width=True)
         
 
     if('individual packet time' in options):
@@ -1196,5 +1231,12 @@ else :
             bacnet_service[name[k]] = lis
         bacnet_service["time"] = bacnet_service['time'].apply(lambda x : x.strftime("%d %B, %Y, %H:%M"))
         bacnet_service = bacnet_service.set_index('time')
-        st.line_chart(bacnet_service)
+        
+        bacnet_service = bacnet_service.reset_index().melt('time')
+        chart = alt.Chart(bacnet_service).mark_line().encode(
+            x = alt.X('time', axis=alt.Axis(labelOverlap="greedy",grid=False)),
+            y = alt.Y('value'),
+            color= alt.Color('variable')
+        )
+        st.altair_chart(chart, use_container_width=True)
         
