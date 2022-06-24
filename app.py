@@ -523,7 +523,6 @@ if uploaded_file is not None :
         color= alt.Color('variable')
     )
     st.altair_chart(chart, use_container_width=True)
-    st.write("DEBUG : ")
 
     options = st.multiselect("Select NLQ" ,["NLQ0","NLQ1","NLQ2","NLQ3"])
     if("NLQ0" in options):
