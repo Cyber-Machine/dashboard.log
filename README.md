@@ -1,5 +1,6 @@
 # <center>DASHBOARD.log</center>
-
+![Banner-Light](./res/dashboard-log-light.png#gh-light-mode-only)
+![Banner-Dark](./res/dashboard.log.png#gh-dark-mode-only)
 Create a dynamic dashboard of your log files by selecting options from the given list of options.
 LogBoard helps you to :
 - Visualize system variables 
