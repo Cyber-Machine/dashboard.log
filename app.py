@@ -514,7 +514,16 @@ if uploaded_file is not None :
     Bac_byte_ALQ=Bac_byte_ALQ.set_index('Time')
     # st.write(Bac_byte_ALQ['Time'])
     options = st.multiselect("Filter by params",list(Bac_byte_ALQ.columns),list(Bac_byte_ALQ.columns))
-    st.line_chart(Bac_byte_ALQ[options])
+    # st.line_chart(Bac_byte_ALQ[options])
+    Bac_byte_ALQ = Bac_byte_ALQ[options]
+    Bac_byte_ALQ = Bac_byte_ALQ.reset_index().melt('Time')
+    chart = alt.Chart(Bac_byte_ALQ).mark_line().encode(
+        x = alt.X('Time', axis=alt.Axis(labelOverlap="greedy",grid=False)),
+        y = alt.Y('value'),
+        color= alt.Color('variable')
+    )
+    st.altair_chart(chart, use_container_width=True)
+    st.write("DEBUG : ")
 
     options = st.multiselect("Select NLQ" ,["NLQ0","NLQ1","NLQ2","NLQ3"])
     if("NLQ0" in options):
@@ -1111,7 +1120,15 @@ else :
     Bac_byte_ALQ=Bac_byte_ALQ.set_index('Time')
     # st.write(Bac_byte_ALQ['Time'])
     options = st.multiselect("Filter by params",list(Bac_byte_ALQ.columns),list(Bac_byte_ALQ.columns))
-    st.line_chart(Bac_byte_ALQ[options])
+    Bac_byte_ALQ = Bac_byte_ALQ[options]
+    Bac_byte_ALQ = Bac_byte_ALQ.reset_index().melt('Time')
+    chart = alt.Chart(Bac_byte_ALQ).mark_line().encode(
+        x = alt.X('Time', axis=alt.Axis(labelOverlap="greedy",grid=False)),
+        y = alt.Y('value'),
+        color= alt.Color('variable')
+    )
+    st.altair_chart(chart, use_container_width=True)
+    # st.line_chart(Bac_byte_ALQ[options])
 
     options = st.multiselect("Select NLQ" ,["NLQ0","NLQ1","NLQ2","NLQ3"])
     if("NLQ0" in options):
