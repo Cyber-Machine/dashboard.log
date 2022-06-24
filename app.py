@@ -29,7 +29,7 @@ st.markdown('''
 with st.sidebar.header('Upload .log file'):
     uploaded_file = st.sidebar.file_uploader("Drag and drop your log file")
 
-if uploaded_file is not None :
+if uploaded_file is not None :  
     
      # ETHERNET
     times = []
@@ -447,7 +447,16 @@ if uploaded_file is not None :
         Beginning_Now = pd.DataFrame(data= Beginning_Now , columns= ["Time"])
         col2.dataframe(Beginning_Now)
     st.header("Memory Usage")
-    st.area_chart(Time_df)
+    chart = alt.Chart(Time_df.reset_index()).mark_area().encode(
+        x=alt.X('Memory_Usage_Time', axis=alt.Axis(labelOverlap="greedy",grid=False)),
+        y=alt.Y('Used_Memory'),color = alt.value('orange') )
+    sys = alt.Chart(Time_df.reset_index()).mark_area().encode(
+        x=alt.X('Memory_Usage_Time', axis=alt.Axis(labelOverlap="greedy",grid=False)),
+        y=alt.Y('Total System'))
+        
+    chart = alt.layer(sys,chart)
+    st.altair_chart(chart, use_container_width=True)
+  
     Rx_Bytes = list(map(lambda x : int(x,16)//1000, Rx_Bytes))
     Tx_Bytes = list(map(lambda x : int(x,16)//1000 , Tx_Bytes))
     Time_byte = pd.DataFrame()
@@ -456,30 +465,36 @@ if uploaded_file is not None :
     Time_byte = Time_byte.set_index("Time")
     Time_byte["Received Bytes"] = Rx_Bytes
     Time_byte["Transmitted Bytes"] = Tx_Bytes
-
-
+    Time_byte["Received Packets"] = list(map(lambda x : int(x,16),Rx_Packets))
+    Time_byte["Transmitted Packets"] = list(map(lambda x : int(x,16),Tx_Packets))
+    if(len(Time_byte["Transmitted Packets"])>20):
+        val = []
+        i = 0
+        while i < (len(Time_byte["Transmitted Bytes"])):
+            val.append(i)
+            i+=5
+        Time_byte = Time_byte.iloc[val , 0:]
 
     st.markdown('''
     ## Ethernet Statistics
     #### Bytes Received and Transmitted
     ''')
-    st.bar_chart(Time_byte)
+    
+    st.bar_chart(Time_byte[["Received Bytes","Transmitted Bytes"]])
     E_Bytes = pd.DataFrame()
     E_Bytes["Times"] = times
     E_Bytes["Times"]=E_Bytes["Times"].apply(lambda x : x.ctime())
     # E_Bytes["Received Bytes"]
 
     st.subheader("Packets")
-    Time_byte["Received Packets"] = list(map(lambda x : int(x,16),Rx_Packets))
-    Time_byte["Transmitted Packets"] = list(map(lambda x : int(x,16),Tx_Packets))
     st.line_chart(Time_byte[["Received Packets", "Transmitted Packets"]])
     st.subheader("Drop in Bytes")
     col1,col2 = st.columns(2)
     col1.metric("Drop in Received Bytes",Rx_Drop[0])    
     col2.metric("Drop in Transmitted Bytes", Tx_Drop[0])
 
-    Time_byte["Rx_Error"] = Rx_Error
-    Time_byte['Tx_Error'] = Tx_Error
+    # Time_byte["Rx_Error"] = Rx_Error
+    # Time_byte['Tx_Error'] = Tx_Error
     
     st.subheader("Errors in Receiving and transmitting")
     col1,col2 = st.columns(2)
@@ -498,7 +513,8 @@ if uploaded_file is not None :
     Bac_byte_ALQ['Time']=Bac_byte_ALQ["Time"].apply(lambda x : x.strftime("%d %B, %Y, %H:%M"))
     Bac_byte_ALQ=Bac_byte_ALQ.set_index('Time')
     # st.write(Bac_byte_ALQ['Time'])
-    st.line_chart(Bac_byte_ALQ)
+    options = st.multiselect("Filter by params",list(Bac_byte_ALQ.columns),list(Bac_byte_ALQ.columns))
+    st.line_chart(Bac_byte_ALQ[options])
 
     options = st.multiselect("Select NLQ" ,["NLQ0","NLQ1","NLQ2","NLQ3"])
     if("NLQ0" in options):
@@ -1073,7 +1089,8 @@ else :
     Bac_byte_ALQ['Time']=Bac_byte_ALQ["Time"].apply(lambda x : x.strftime("%d %B, %Y, %H:%M"))
     Bac_byte_ALQ=Bac_byte_ALQ.set_index('Time')
     # st.write(Bac_byte_ALQ['Time'])
-    st.line_chart(Bac_byte_ALQ)
+    options = st.multiselect("Filter by params",list(Bac_byte_ALQ.columns),list(Bac_byte_ALQ.columns))
+    st.line_chart(Bac_byte_ALQ[options])
 
     options = st.multiselect("Select NLQ" ,["NLQ0","NLQ1","NLQ2","NLQ3"])
     if("NLQ0" in options):
@@ -1180,3 +1197,4 @@ else :
         bacnet_service["time"] = bacnet_service['time'].apply(lambda x : x.strftime("%d %B, %Y, %H:%M"))
         bacnet_service = bacnet_service.set_index('time')
         st.line_chart(bacnet_service)
+        
