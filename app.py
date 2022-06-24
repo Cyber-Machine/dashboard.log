@@ -314,7 +314,7 @@ if uploaded_file is not None :
         n["avail_mem"] = Available_System_Memory[i]
         Memory_Usage[i] = n
     
-    Memory_Usage = json.dumps(Memory_Usage)
+    # Memory_Usage = json.dumps(Memory_Usage)
     # st.json(Memory_Usage)
 
     # Converting Ethernet Statistics to JSON
@@ -401,7 +401,7 @@ if uploaded_file is not None :
     Device_Beginning_Now = {}
     for i in range(len(Beginning_Now)):
         Device_Beginning_Now[i] = str(Beginning_Now[i])
-    Device_Beginning_Now = json.dumps(Device_Beginning_Now)
+    # Device_Beginning_Now = json.dumps(Device_Beginning_Now)
     # st.json(Device_Beginning_Now)
 
     # Converting BACnet_services
@@ -968,7 +968,7 @@ else :
         n["avail_mem"] = Available_System_Memory[i]
         Memory_Usage[i] = n
     
-    Memory_Usage = json.dumps(Memory_Usage)
+    # Memory_Usage = json.dumps(Memory_Usage)
     # st.json(Memory_Usage)
 
     # Converting Ethernet Statistics to JSON
@@ -1055,7 +1055,7 @@ else :
     Device_Beginning_Now = {}
     for i in range(len(Beginning_Now)):
         Device_Beginning_Now[i] = str(Beginning_Now[i])
-    Device_Beginning_Now = json.dumps(Device_Beginning_Now)
+    # Device_Beginning_Now = json.dumps(Device_Beginning_Now)
     # st.json(Device_Beginning_Now)
 
     # Converting BACnet_services
