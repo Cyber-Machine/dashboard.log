@@ -8,7 +8,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import datetime
 import altair as alt
-import json 
+import json
+import random 
 
 # Setting Homepage title & icon
 st.set_page_config(page_title='Home')
@@ -17,10 +18,6 @@ st.set_page_config(page_title='Home')
 st.markdown('''
     # Logboard
      Start dashboarding your log by uploading your log file in sideBar.
-     
-
-
-
 ''')
 
 # Data 
@@ -537,8 +534,15 @@ if uploaded_file is not None :
         Bac_byte_NLQ0["nlqloadpctlimit"] =     NLQ0_nlqloadpctlimit
         Bac_byte_NLQ0['Time'] = times    
         Bac_byte_NLQ0['Time']=Bac_byte_NLQ0["Time"].apply(lambda x : x.strftime("%d %B, %Y, %H:%M"))
-        Bac_byte_NLQ0=Bac_byte_NLQ0.set_index('Time')
-        st.line_chart(Bac_byte_NLQ0)
+        Bac_byte_NLQ0 =Bac_byte_NLQ0.set_index('Time')
+        Bac_byte_NLQ0 = Bac_byte_NLQ0.reset_index().melt('Time')
+        chart = alt.Chart(Bac_byte_NLQ0).mark_line().encode(
+        x = alt.X('Time', axis=alt.Axis(labelOverlap="greedy",grid=False)),
+        y = alt.Y('value'),
+        color= alt.Color('variable')
+        )
+        st.altair_chart(chart, use_container_width=True)
+        # st.line_chart(Bac_byte_NLQ0)
         # st.dataframe(Bac_byte_NLQ0)
     if("NLQ1" in options):
         Bac_byte_NLQ1 = pd.DataFrame()
@@ -553,7 +557,14 @@ if uploaded_file is not None :
         Bac_byte_NLQ1['Time'] = times    
         Bac_byte_NLQ1['Time']=Bac_byte_NLQ1["Time"].apply(lambda x : x.strftime("%d %B, %Y, %H:%M"))
         Bac_byte_NLQ1=Bac_byte_NLQ1.set_index('Time')
-        st.line_chart(Bac_byte_NLQ1)
+        Bac_byte_NLQ1 = Bac_byte_NLQ1.reset_index().melt('Time')
+        chart = alt.Chart(Bac_byte_NLQ1).mark_line().encode(
+        x = alt.X('Time', axis=alt.Axis(labelOverlap="greedy",grid=False)),
+        y = alt.Y('value'),
+        color= alt.Color('variable')
+        )
+        st.altair_chart(chart, use_container_width=True)
+        # st.line_chart(Bac_byte_NLQ1)
         # st.dataframe(Bac_byte_NLQ1)
     if("NLQ2" in options):
         Bac_byte_NLQ2 = pd.DataFrame()
@@ -568,7 +579,14 @@ if uploaded_file is not None :
         Bac_byte_NLQ2['Time'] = times    
         Bac_byte_NLQ2['Time']=Bac_byte_NLQ2["Time"].apply(lambda x : x.strftime("%d %B, %Y, %H:%M"))
         Bac_byte_NLQ2=Bac_byte_NLQ2.set_index('Time')
-        st.line_chart(Bac_byte_NLQ2)
+        Bac_byte_NLQ2 = Bac_byte_NLQ2.reset_index().melt('Time')
+        chart = alt.Chart(Bac_byte_NLQ2).mark_line().encode(
+        x = alt.X('Time', axis=alt.Axis(labelOverlap="greedy",grid=False)),
+        y = alt.Y('value'),
+        color= alt.Color('variable')
+        )
+        st.altair_chart(chart, use_container_width=True)
+        # st.line_chart(Bac_byte_NLQ2)
         # st.dataframe(Bac_byte_NLQ2)
     if("NLQ3" in options):
         Bac_byte_NLQ3 = pd.DataFrame()
@@ -583,7 +601,14 @@ if uploaded_file is not None :
         Bac_byte_NLQ3['Time'] = times    
         Bac_byte_NLQ3['Time']=Bac_byte_NLQ3["Time"].apply(lambda x : x.strftime("%d %B, %Y, %H:%M"))
         Bac_byte_NLQ3=Bac_byte_NLQ3.set_index('Time')
-        st.line_chart(Bac_byte_NLQ3)
+        Bac_byte_NLQ3 = Bac_byte_NLQ3.reset_index().melt('Time')
+        chart = alt.Chart(Bac_byte_NLQ3).mark_line().encode(
+        x = alt.X('Time', axis=alt.Axis(labelOverlap="greedy",grid=False)),
+        y = alt.Y('value'),
+        color= alt.Color('variable')
+        )
+        st.altair_chart(chart, use_container_width=True)
+        # st.line_chart(Bac_byte_NLQ3)
         # st.dataframe(Bac_byte_NLQ3)
     
     st.header('BACnet Service Statistics')
@@ -652,6 +677,15 @@ if uploaded_file is not None :
         st.altair_chart(chart, use_container_width=True)
       
 else :
+    st.info("Reload site to see another result")
+    locations = []
+    for i in range(2,12):
+        locations.append(f"Diagnostics_Text_Logs/EverestA9_{i}.log")
+
+    def get_loc():
+        return random.choice(locations)
+        
+
     # ETHERNET
     times = []
     Rx_Bytes = []
@@ -735,7 +769,7 @@ else :
     # Times system restarted 
     Beginning_Now = []
 
-    with open("Diagnostics_Text_Logs/EverestA9_2.log",'r') as f :
+    with open(get_loc(),'r') as f :
         lines = f.readlines();
         for line in lines:
             if("Device Beginning Now" in line):
@@ -860,10 +894,7 @@ else :
                     temp = rpm[kkeys[i]]
                     temp.append(float(l[i+1]))
                     rpm[kkeys[i]] = temp
-                    
-            # if("SUBCOVP" in line.split()):
-            #     l = line.split()
-
+             
             if("RP" in line.split()) :
                 l = line.split()
                 for i in range(3):
@@ -1255,4 +1286,4 @@ else :
             color= alt.Color('variable')
         )
         st.altair_chart(chart, use_container_width=True)
-        
+    
