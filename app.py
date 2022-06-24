@@ -440,7 +440,6 @@ if uploaded_file is not None :
         for t in range(len(Beginning_Now)) :
             time = Beginning_Now[t]
             Beginning_Now[t] = time.strftime("%d %B, %Y, %H:%M:%S")
-        print(Beginning_Now)
         Beginning_Now = pd.DataFrame(data= Beginning_Now , columns= ["Time"])
         col2.dataframe(Beginning_Now)
     st.header("Memory Usage")
@@ -1094,7 +1093,6 @@ else :
         for t in range(len(Beginning_Now)) :
             time = Beginning_Now[t]
             Beginning_Now[t] = time.strftime("%d %B, %Y, %H:%M:%S")
-        print(Beginning_Now)
         Beginning_Now = pd.DataFrame(data= Beginning_Now , columns= ["Time"])
         col2.dataframe(Beginning_Now)
     st.header("Memory Usage")
