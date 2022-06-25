@@ -1,12 +1,21 @@
-#  <center>DASHBOARD.log</center>
-![Banner-Light](./res/dashboard-log-light.png#gh-light-mode-only)
-![Banner-Dark](./res/dashboard.log.png#gh-dark-mode-only)
+<center> 
+
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://cyber-machine-dashboard-log-app-376gki.streamlitapp.com/)
+
+ </center>
+
+#  <center>     DASHBOARD.log   </center>
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="./res/dashboard-log-light.png">
+  <source media="(prefers-color-scheme: dark)" srcset="./res/dashboard.log.png">
+  <img alt="Hello!" align="center" src = "./res/dashboard.log.png">
+</picture>
 Create a dynamic dashboard of your log files by selecting options from the given list of options.
-LogBoard helps you to :
+Dashboard.log / LogBoard helps you to :
 - Visualize system variables 
 - Helps to understand log file
 
-LogBoard is built using [`Streamlit`](https://streamlit.io/) which is powered by Python and Altair.
+LogBoard is built using [`Streamlit`](https://streamlit.io/) which is powered by [`Python`](https://www.python.org/) and [`Altair`](https://altair-viz.github.io/index.html).
 
 ## Getting Started with LogBoard
 ### Prerequisites 
