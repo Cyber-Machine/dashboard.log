@@ -1,4 +1,4 @@
-# <center>DASHBOARD.log</center>
+#  <center>DASHBOARD.log</center>
 ![Banner-Light](./res/dashboard-log-light.png#gh-light-mode-only)
 ![Banner-Dark](./res/dashboard.log.png#gh-dark-mode-only)
 Create a dynamic dashboard of your log files by selecting options from the given list of options.
@@ -87,7 +87,7 @@ streamlit run app.py
 
 
 
-### Contribute
+## Contribute
 
 The best way to contribute is via a [Pull request](https://github.com/Cyber-Machine/dashboard.log/pulls) and Github [Issues](https://github.com/Cyber-Machine/dashboard.log/issues)
 
@@ -95,7 +95,7 @@ In the pull request you should make a brief description of changes made.
  
 Thanks for your time.
 
-### Future Improvements 
+## Future Improvements 
 
 - Adding a `Regex` catcher to catch particular commands / errors in log file.
 - `Multi-file support`, a way to integrate log reports of multi log file.
