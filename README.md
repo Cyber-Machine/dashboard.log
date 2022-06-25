@@ -10,7 +10,10 @@
   <source media="(prefers-color-scheme: dark)" srcset="./res/dashboard.log.png">
   <img alt="Hello!" align="center" src = "./res/dashboard.log.png">
 </picture>
+
 Create a dynamic dashboard of your log files by selecting options from the given list of options.
+
+
 Dashboard.log / LogBoard helps you to :
 - Visualize system variables 
 - Helps to understand log file
